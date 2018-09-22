@@ -16,7 +16,9 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
+    private var theTarget : SKShapeNode?
     private var spinnyNode : SKShapeNode?
+    private var option1Node : SKLabelNode?
     
     override func sceneDidLoad() {
 
@@ -27,6 +29,15 @@ class GameScene: SKScene {
         if let label = self.label {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
+            label.text = "怎么样？"
+            label.position = CGPoint(x: 0.0, y: -100.0)
+        }
+        
+        // Get target node from scene and store it for use later
+        self.theTarget = self.childNode(withName: "//target") as? SKShapeNode
+        if let theTarget = self.theTarget {
+            theTarget.alpha = 0.0
+            theTarget.run(SKAction.fadeIn(withDuration: 500.0))
         }
         
         // Create shape node to use during mouse interaction
@@ -40,6 +51,16 @@ class GameScene: SKScene {
             spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
+        }
+        
+        // Create a label node for the options
+        self.option1Node = SKLabelNode.init(text: "A")
+        if let option1Node = self.option1Node {
+            option1Node.text = "是"
+            option1Node.position = CGPoint(x: 0.0, y: -500.0)
+            option1Node.alpha = 1.0
+            option1Node.fontSize = 100
+            self.addChild(option1Node)
         }
     }
     
@@ -71,6 +92,8 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+            label.run(SKAction.moveBy(x: 0.0, y:300.0, duration: 1.0))
+         //   label.run(SKAction.moveBy(x: 0.0, y:-100.0, duration: 1.0))
         }
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
