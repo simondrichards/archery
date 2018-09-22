@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  archery
 //
-//  Created by Simon Richards on 21/08/2018.
+//  Develoment prototype for ChinesePod
 //  Copyright © 2018 Simon Richards. All rights reserved.
 //
 
