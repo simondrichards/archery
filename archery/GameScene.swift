@@ -29,6 +29,7 @@ class GameScene: SKScene {
 
         self.lastUpdateTime = 0
         
+        
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
@@ -53,7 +54,7 @@ class GameScene: SKScene {
             theTargett.size = CGSize(width: 500.0, height: 500.0)
             print (theTargett.size.width)
             theTargett.anchorPoint = CGPoint(x: 0, y: 1)
-            theTargett.position = CGPoint(x: -theTargett.size.width/2, y: 300)
+            theTargett.position = CGPoint(x: -theTargett.size.width/2, y: 500)
             theTargett.zPosition = 5.0
             self.addChild(theTargett)
         }
@@ -85,7 +86,7 @@ class GameScene: SKScene {
         }
         if let tile = self.tile {
             tile.color = .blue
-            tile.position = CGPoint(x: 0.0, y: -300.0)
+            tile.position = CGPoint(x: 0.0, y: 250.0)
             tile.zPosition = 10.0
             tile.addChild(self.hanzi!)
             self.addChild(tile)
@@ -144,7 +145,7 @@ class GameScene: SKScene {
          //   label.run(SKAction.moveBy(x: 0.0, y:-100.0, duration: 1.0))
         }
         if let tile = self.tile {
-            tile.run(SKAction.moveBy(x: 0.0, y: 400.0, duration: 3.0))
+            tile.run(SKAction.moveBy(x: 0.0, y: 250.0, duration: 3.0))
         }
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
