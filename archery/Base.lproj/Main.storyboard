@@ -35,7 +35,7 @@
         <!--settings-->
         <scene sceneID="i6K-zT-iau">
             <objects>
-                <viewController title="settings" id="PIJ-Yi-N5L" sceneMemberID="viewController">
+                <viewController title="settings" id="PIJ-Yi-N5L" customClass="SettingsViewController" customModule="archery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nl7-B7-Q0y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

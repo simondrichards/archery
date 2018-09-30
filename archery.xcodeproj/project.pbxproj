@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F445FEDA2160B187007D0C90 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445FED92160B187007D0C90 /* SettingsViewController.swift */; };
 		F4903F16212C9B8D000142D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4903F15212C9B8D000142D0 /* AppDelegate.swift */; };
 		F4903F18212C9B8D000142D0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4903F17212C9B8D000142D0 /* GameScene.sks */; };
 		F4903F1A212C9B8D000142D0 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4903F19212C9B8D000142D0 /* Actions.sks */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F445FED92160B187007D0C90 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F4903F12212C9B8D000142D0 /* archery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = archery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4903F15212C9B8D000142D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4903F17212C9B8D000142D0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				F4903F1B212C9B8D000142D0 /* GameScene.swift */,
 				F4903F1D212C9B8D000142D0 /* GameViewController.swift */,
 				F4903F1F212C9B8D000142D0 /* Main.storyboard */,
+				F445FED92160B187007D0C90 /* SettingsViewController.swift */,
 				F4903F22212C9B8E000142D0 /* Assets.xcassets */,
 				F4903F24212C9B8E000142D0 /* LaunchScreen.storyboard */,
 				F4903F27212C9B8E000142D0 /* Info.plist */,
@@ -270,6 +273,7 @@
 				F4903F1C212C9B8D000142D0 /* GameScene.swift in Sources */,
 				F4903F1E212C9B8D000142D0 /* GameViewController.swift in Sources */,
 				F4903F16212C9B8D000142D0 /* AppDelegate.swift in Sources */,
+				F445FEDA2160B187007D0C90 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
