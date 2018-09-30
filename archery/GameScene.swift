@@ -19,6 +19,8 @@ class GameScene: SKScene {
     private var theTarget : SKShapeNode?
     private var spinnyNode : SKShapeNode?
     private var option1Node : SKLabelNode?
+    private var background : SKSpriteNode?
+    private var settings : SKLabelNode?
     
     override func sceneDidLoad() {
 
@@ -54,13 +56,23 @@ class GameScene: SKScene {
         }
         
         // Create a label node for the options
+        self.background = SKSpriteNode.init()
         self.option1Node = SKLabelNode.init(text: "A")
         if let option1Node = self.option1Node {
             option1Node.text = "是"
-            option1Node.position = CGPoint(x: 0.0, y: -500.0)
+            option1Node.position = CGPoint(x: 0.0, y: 0.0)
             option1Node.alpha = 1.0
             option1Node.fontSize = 100
             self.addChild(option1Node)
+        }
+        
+        // Add a button to get to the settings
+        self.settings = SKLabelNode.init(text: "Settings")
+        if let settings = self.settings {
+            settings.position = CGPoint(x: 0.0, y: 100)
+            settings.alpha = 1.0
+            settings.fontSize = 50
+            self.addChild(settings)
         }
     }
     
