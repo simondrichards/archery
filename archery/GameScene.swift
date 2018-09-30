@@ -19,7 +19,9 @@ class GameScene: SKScene {
     private var theTarget : SKShapeNode?
     private var spinnyNode : SKShapeNode?
     private var option1Node : SKLabelNode?
+    private var hanzi : SKLabelNode?
     private var background : SKSpriteNode?
+    private var tile : SKSpriteNode?
     private var settings : SKLabelNode?
     
     override func sceneDidLoad() {
@@ -56,6 +58,20 @@ class GameScene: SKScene {
         }
         
         // Create a label node for the options
+        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: 100, height: 100))
+        self.hanzi = SKLabelNode.init(text: "Z")
+        if let hanzi = self.hanzi {
+            hanzi.fontSize = 100
+            hanzi.verticalAlignmentMode = .center
+            hanzi.text = "是"
+        }
+        if let tile = self.tile {
+            tile.color = .blue
+            tile.position = CGPoint(x: 0.0, y: -300.0)
+            tile.addChild(self.hanzi!)
+            self.addChild(tile)
+        }
+        
         self.background = SKSpriteNode.init()
         self.option1Node = SKLabelNode.init(text: "A")
         if let option1Node = self.option1Node {
