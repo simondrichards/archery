@@ -17,6 +17,7 @@ class GameScene: SKScene {
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
     private var theTarget : SKShapeNode?
+    private var theTargett : SKSpriteNode?
     private var spinnyNode : SKShapeNode?
     private var option1Node : SKLabelNode?
     private var hanzi : SKLabelNode?
@@ -43,6 +44,19 @@ class GameScene: SKScene {
             theTarget.alpha = 0.0
             theTarget.run(SKAction.fadeIn(withDuration: 500.0))
         }
+        print("before theTargett")
+        self.theTargett = SKSpriteNode()
+        if let theTargett = self.theTargett {
+            print("theTargett")
+            theTargett.texture = SKTexture(imageNamed: "archery_target")
+            theTargett.size = theTargett.texture!.size()
+            theTargett.size = CGSize(width: 500.0, height: 500.0)
+            print (theTargett.size.width)
+            theTargett.anchorPoint = CGPoint(x: 0, y: 1)
+            theTargett.position = CGPoint(x: -theTargett.size.width/2, y: 300)
+            theTargett.zPosition = 5.0
+            self.addChild(theTargett)
+        }
         
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
@@ -58,18 +72,24 @@ class GameScene: SKScene {
         }
         
         // Create a label node for the options
-        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: 100, height: 100))
+        let textsize: Int = 50
+        var tilesize: Int
+        tilesize = textsize + 8
+        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: tilesize))
         self.hanzi = SKLabelNode.init(text: "Z")
         if let hanzi = self.hanzi {
-            hanzi.fontSize = 100
+            hanzi.fontSize = 50
+            hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
             hanzi.verticalAlignmentMode = .center
             hanzi.text = "是"
         }
         if let tile = self.tile {
             tile.color = .blue
             tile.position = CGPoint(x: 0.0, y: -300.0)
+            tile.zPosition = 10.0
             tile.addChild(self.hanzi!)
             self.addChild(tile)
+            print("addChild(tile)")
         }
         
         self.background = SKSpriteNode.init()
@@ -122,6 +142,9 @@ class GameScene: SKScene {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             label.run(SKAction.moveBy(x: 0.0, y:300.0, duration: 1.0))
          //   label.run(SKAction.moveBy(x: 0.0, y:-100.0, duration: 1.0))
+        }
+        if let tile = self.tile {
+            tile.run(SKAction.moveBy(x: 0.0, y: 400.0, duration: 3.0))
         }
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
