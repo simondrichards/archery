@@ -205,13 +205,16 @@
 				TargetAttributes = {
 					F4903F11212C9B8D000142D0 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					F4903F2B212C9B8E000142D0 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = F4903F11212C9B8D000142D0;
 					};
 					F4903F36212C9B8F000142D0 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = F4903F11212C9B8D000142D0;
 					};
 				};
@@ -454,7 +457,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -471,7 +474,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -490,7 +493,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archeryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/archery.app/archery";
 			};
@@ -510,7 +513,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archeryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/archery.app/archery";
 			};
@@ -529,7 +532,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archeryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = archery;
 			};
@@ -548,7 +551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SimonRichards.archeryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = archery;
 			};
