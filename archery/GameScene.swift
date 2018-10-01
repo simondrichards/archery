@@ -64,17 +64,26 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
         
-        // Create a label node for the options
+        // Create a tile for the candidate answers
+        
+        // Sample a random key:value pair from the dictionary
+        print(Dictionary.count)
+        let randomWord = Dictionary.randomElement()!
+        print (randomWord)
+        
         let textsize: Int = 50
         var tilesize: Int
-        tilesize = textsize + 8
+        
+        // Make tile big enough for two characters
+        tilesize = 2*textsize + 8
+        
         self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: tilesize))
-        self.hanzi = SKLabelNode.init(text: "Z")
+        self.hanzi = SKLabelNode.init()
         if let hanzi = self.hanzi {
             hanzi.fontSize = 50
             hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
             hanzi.verticalAlignmentMode = .center
-            hanzi.text = "是"
+            hanzi.text = randomWord.value
         }
         if let tile = self.tile {
             tile.color = .blue
@@ -114,8 +123,6 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-         //   label.run(SKAction.moveBy(x: 0.0, y:300.0, duration: 1.0))
-         //   label.run(SKAction.moveBy(x: 0.0, y:-100.0, duration: 1.0))
         }
         if let tile = self.tile {
             tile.run(SKAction.moveBy(x: 0.0, y: 250.0, duration: 3.0))
