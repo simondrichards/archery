@@ -16,7 +16,7 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
-    private var theTargett : SKSpriteNode?
+    private var theTarget : SKSpriteNode?
     private var spinnyNode : SKShapeNode?
     private var hanzi : SKLabelNode?
     private var tile : SKSpriteNode?
@@ -37,18 +37,18 @@ class GameScene: SKScene {
         }
         
         // Add the target
-        print("before theTargett")
-        self.theTargett = SKSpriteNode()
-        if let theTargett = self.theTargett {
-            print("theTargett")
-            theTargett.texture = SKTexture(imageNamed: "archery_target")
-            theTargett.size = theTargett.texture!.size()
-            theTargett.size = CGSize(width: 500.0, height: 500.0)
-            print (theTargett.size.width)
-            theTargett.anchorPoint = CGPoint(x: 0, y: 1)
-            theTargett.position = CGPoint(x: -theTargett.size.width/2, y: 500)
-            theTargett.zPosition = 5.0
-            self.addChild(theTargett)
+        print("before theTarget")
+        self.theTarget = SKSpriteNode()
+        if let theTarget = self.theTarget {
+            print("theTarget")
+            theTarget.texture = SKTexture(imageNamed: "archery_target")
+            theTarget.size = theTarget.texture!.size()
+            theTarget.size = CGSize(width: 500.0, height: 500.0)
+            print (theTarget.size.width)
+            theTarget.anchorPoint = CGPoint(x: 0, y: 1)
+            theTarget.position = CGPoint(x: -theTarget.size.width/2, y: 500)
+            theTarget.zPosition = 5.0
+            self.addChild(theTarget)
         }
         
         // Create shape node to use during mouse interaction
