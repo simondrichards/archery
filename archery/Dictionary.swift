@@ -16,5 +16,6 @@ var Dictionary = ["love": "爱",
                   "father": "爸爸",
                   "cup": "杯子",
                   "Beijing": "北京",
+                  "You're welcome": "不客气",
                   "to be": "是"
 ]

@@ -19,22 +19,13 @@ class GameScene: SKScene {
     private var theTarget : SKSpriteNode?
     private var spinnyNode : SKShapeNode?
     private var hanzi : SKLabelNode?
+    private var clue : SKLabelNode?
     private var tile : SKSpriteNode?
     private var settings : SKLabelNode?
     
     override func sceneDidLoad() {
 
         self.lastUpdateTime = 0
-        
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-            label.text = "怎么样？"
-            label.position = CGPoint(x: 0.0, y: -100.0)
-        }
         
         // Add the target
         print("before theTarget")
@@ -64,20 +55,32 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
         
-        // Create a tile for the candidate answers
         
         // Sample a random key:value pair from the dictionary
         print(Dictionary.count)
         let randomWord = Dictionary.randomElement()!
         print (randomWord)
         
+        // Create a LabelNode to display the word below the target
+        self.clue = SKLabelNode.init()
+        if let clue = self.clue {
+            clue.position = CGPoint(x: 0.0, y: -100.0)
+            clue.fontSize = 50
+            clue.fontName = "STHeitiSC-Medium"
+            clue.text = randomWord.key
+            clue.zPosition = 80
+            self.addChild(clue)
+        }
+        
+        // Create a tile for the candidate answers
+
         let textsize: Int = 50
         var tilesize: Int
         
         // Make tile big enough for two characters
-        tilesize = 2*textsize + 8
+        tilesize = 3*textsize + 8
         
-        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: tilesize))
+        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: textsize+8))
         self.hanzi = SKLabelNode.init()
         if let hanzi = self.hanzi {
             hanzi.fontSize = 50
