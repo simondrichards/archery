@@ -16,12 +16,9 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
-    private var theTarget : SKShapeNode?
     private var theTargett : SKSpriteNode?
     private var spinnyNode : SKShapeNode?
-    private var option1Node : SKLabelNode?
     private var hanzi : SKLabelNode?
-    private var background : SKSpriteNode?
     private var tile : SKSpriteNode?
     private var settings : SKLabelNode?
     
@@ -39,12 +36,7 @@ class GameScene: SKScene {
             label.position = CGPoint(x: 0.0, y: -100.0)
         }
         
-        // Get target node from scene and store it for use later
-        self.theTarget = self.childNode(withName: "//target") as? SKShapeNode
-        if let theTarget = self.theTarget {
-            theTarget.alpha = 0.0
-            theTarget.run(SKAction.fadeIn(withDuration: 500.0))
-        }
+        // Add the target
         print("before theTargett")
         self.theTargett = SKSpriteNode()
         if let theTargett = self.theTargett {
@@ -92,25 +84,6 @@ class GameScene: SKScene {
             self.addChild(tile)
             print("addChild(tile)")
         }
-        
-        self.background = SKSpriteNode.init()
-        self.option1Node = SKLabelNode.init(text: "A")
-        if let option1Node = self.option1Node {
-            option1Node.text = "是"
-            option1Node.position = CGPoint(x: 0.0, y: 0.0)
-            option1Node.alpha = 1.0
-            option1Node.fontSize = 100
-            self.addChild(option1Node)
-        }
-        
-        // Add a button to get to the settings
-        self.settings = SKLabelNode.init(text: "Settings")
-        if let settings = self.settings {
-            settings.position = CGPoint(x: 0.0, y: 100)
-            settings.alpha = 1.0
-            settings.fontSize = 50
-            self.addChild(settings)
-        }
     }
     
     
@@ -141,7 +114,7 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-            label.run(SKAction.moveBy(x: 0.0, y:300.0, duration: 1.0))
+         //   label.run(SKAction.moveBy(x: 0.0, y:300.0, duration: 1.0))
          //   label.run(SKAction.moveBy(x: 0.0, y:-100.0, duration: 1.0))
         }
         if let tile = self.tile {
