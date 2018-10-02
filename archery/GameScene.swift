@@ -21,7 +21,21 @@ class GameScene: SKScene {
     private var clue : SKLabelNode?
     private var Tile : SKSpriteNode?
     
-    var numberOfOptions = 4
+    let numberOfOptions = 4
+    var initialPosition = [CGPoint]()
+    
+    func initial(){
+        // Set up initial positions
+        switch numberOfOptions {
+            case 4:
+                initialPosition.append(CGPoint(x:-100.0, y: 50.0))
+                initialPosition.append(CGPoint(x: 100.0, y: 50.0))
+                initialPosition.append(CGPoint(x:-100.0, y:-50.0))
+                initialPosition.append(CGPoint(x: 100.0, y:-50.0))
+            default:
+                break
+        }
+    }
     
     override func sceneDidLoad() {
 
@@ -72,6 +86,7 @@ class GameScene: SKScene {
         var theTiles = [AnswerTile]()
         
         // Create the required number of tiles
+        initial() // Set initial positions
         var wordSet = [String: String]()
         for i in 0..<numberOfOptions{
             
@@ -85,7 +100,9 @@ class GameScene: SKScene {
                 }
             }
             
-            theTiles.append(AnswerTile(x: 100.0, y:CGFloat(-300.0-60*Double(i)), word: randomWord.value))
+            print(initialPosition.count)
+            print(initialPosition[i])
+            theTiles.append(AnswerTile(x: initialPosition[i].x, y: initialPosition[i].y, word: randomWord.value))
             self.addChild(theTiles[i])
             wordSet[randomWord.key] = randomWord.value
             
