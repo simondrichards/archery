@@ -119,6 +119,26 @@ class GameScene: SKScene {
         }
     }
     
+    func calculateSector(position: CGPoint) -> Int {
+        // Calculate which sector of the target the touch point is in
+        var sector = 0
+        
+        let x = position.x
+        let y = position.y
+        
+        switch numberOfOptions {
+        case 4:
+            if (x<0 && y>=0)       {sector=1}
+            else if (x>=0 && y>=0) {sector=2}
+            else if (x>=0 && y<0)  {sector=3}
+            else if (x<0 && y<0)   {sector=4}
+        default:
+            sector = 0
+        }
+        
+        return(sector)
+    }
+    
     func touchDown(atPoint pos : CGPoint) {
   /*      if let n = self.spinnyNode?.copy() as! SKShapeNode? {
             n.position = pos
@@ -144,9 +164,14 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+ 
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            print("Touch location = \(location)")
+            let sector = calculateSector(position: location)
+            print ("Selected sector = \(sector)")
         }
+        
         for i in 0..<numberOfOptions {
             let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
             let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
