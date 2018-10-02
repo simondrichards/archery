@@ -21,14 +21,14 @@ class GameScene: SKScene {
     private var clue : SKLabelNode?
     private var Tile : SKSpriteNode?
     
+    var numberOfOptions = 4
+    
     override func sceneDidLoad() {
 
         self.lastUpdateTime = 0
         
         // Add the target
-        
-        print (self.size.width)
-        print("before theTarget")
+
         self.theTarget = SKSpriteNode()
         if let theTarget = self.theTarget {
             theTarget.texture = SKTexture(imageNamed: "archery_target")
@@ -42,7 +42,6 @@ class GameScene: SKScene {
         }
         
         // Sample a random key:value pair from the dictionary
-        print(Dictionary.count)
         var randomWord = Dictionary.randomElement()!
         print (randomWord)
         
@@ -68,7 +67,29 @@ class GameScene: SKScene {
         randomWord = Dictionary.randomElement()!
         let newTile2 = AnswerTile(x:-100.0, y: -200.0, word: randomWord.value)
         self.addChild(newTile2)
+     
+        // Create an empty array of tiles
+        var theTiles = [AnswerTile]()
         
+        // Create the required number of tiles
+        var wordSet = [String: String]()
+        for i in 0..<numberOfOptions{
+            
+            // Get a random word from the dictionary
+            randomWord = Dictionary.randomElement()!
+            
+            // Discard and resample if we've already created a tile for this word
+            if (i>0) {
+                while (wordSet[randomWord.key] != nil){
+                    randomWord = Dictionary.randomElement()!
+                }
+            }
+            
+            theTiles.append(AnswerTile(x: 100.0, y:CGFloat(-300.0-60*Double(i)), word: randomWord.value))
+            self.addChild(theTiles[i])
+            wordSet[randomWord.key] = randomWord.value
+            
+        }
     }
     
     func touchDown(atPoint pos : CGPoint) {
