@@ -23,11 +23,12 @@ class AnswerTile: SKSpriteNode {
         super.init(texture: nil, color: .blue, size: tileSize)
         self.position.x = x
         self.position.y = y
+        self.zPosition = 10.0 // This should be in front of the target
         setup()
     }
     
     func setup() {
-        // Create a tile for the candidate answers
+        // Setup for a tile
     
         let textSize: Int = 50
         var tileSize: Int

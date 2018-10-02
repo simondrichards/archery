@@ -70,6 +70,7 @@ class GameScene: SKScene {
     private var hanzi : SKLabelNode?
     private var clue : SKLabelNode?
     private var tile : SKSpriteNode?
+    private var Tile : SKSpriteNode?
     private var settings : SKLabelNode?
     
     override func sceneDidLoad() {
@@ -124,29 +125,8 @@ class GameScene: SKScene {
         }
         
         // Create a tile for the candidate answers
-
-        let textsize: Int = 50
-        var tilesize: Int
-        
-        // Make tile big enough for two characters
-        tilesize = 3*textsize + 8
-        
-        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: textsize+8))
-        self.hanzi = SKLabelNode.init()
-        if let hanzi = self.hanzi {
-            hanzi.fontSize = 50
-            hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
-            hanzi.verticalAlignmentMode = .center
-            hanzi.text = randomWord.value
-        }
-        if let tile = self.tile {
-            tile.color = .blue
-            tile.position = CGPoint(x: 0.0, y: 250.0)
-            tile.zPosition = 10.0
-            tile.addChild(self.hanzi!)
-            self.addChild(tile)
-            print("addChild(tile)")
-        }
+        self.Tile = AnswerTile(x: 0.0, y: 250.0, word: randomWord.value)
+        self.addChild(self.Tile!)
         
         randomWord = Dictionary.randomElement()!
         let newTile1 = AnswerTile(x: 100.0, y: -200.0, word: randomWord.value)
@@ -157,7 +137,6 @@ class GameScene: SKScene {
         self.addChild(newTile2)
         
     }
-    
     
     func touchDown(atPoint pos : CGPoint) {
   /*      if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -187,8 +166,8 @@ class GameScene: SKScene {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
-        if let tile = self.tile {
-            tile.run(SKAction.moveBy(x: 0.0, y: 250.0, duration: 3.0))
+        if let myTile = self.Tile {
+            myTile.run(SKAction.moveBy(x: 0.0, y: 250.0, duration: 3.0))
         }
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
