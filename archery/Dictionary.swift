@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Create a dummy dictionary of vocabulary to use the the prototype.
+// Create a dummy dictionary of vocabulary to use in the prototype.
 // This will need to be replaced by live data in the full app.
 
 var Dictionary = ["love": "爱",

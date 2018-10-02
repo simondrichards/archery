@@ -9,104 +9,37 @@
 import SpriteKit
 import GameplayKit
 
-/*
-class answerTile: SKSpriteNode {
-    
-    private var tile : SKSpriteNode?
-    private var hanzi : SKLabelNode?
-    private var key: String
-    private var value: String
-    
-    var wordKey: String
-    var wordValue: String
-    
-    init(key: String, value: String) {
-        self.wordKey = key
-        self.wordValue = value
-        super.init(texture: nil, color: .white, size: CGSize(width: 50, height: 50))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    func create(dictionaryKey: String, dictionaryValue: String) {
-        
-        // Create a tile for the candidate answers
-        
-        let textsize: Int = 50
-        var tilesize: Int
-        
-        // Make tile big enough for two characters
-        tilesize = 3*textsize + 8
-        
-        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: textsize+8))
-        self.hanzi = SKLabelNode.init()
-        if let hanzi = self.hanzi {
-            hanzi.fontSize = 50
-            hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
-            hanzi.verticalAlignmentMode = .center
-            hanzi.text = wordValue
-        }
-        if let tile = self.tile {
-            tile.color = .blue
-            tile.position = CGPoint(x: 200.0, y: 250.0)
-            tile.zPosition = 10.0
-            tile.addChild(self.hanzi!)
-        }
-    }
-} */
-
 class GameScene: SKScene {
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
-  //  let answerTile: AnswerTile
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
     private var theTarget : SKSpriteNode?
-    private var spinnyNode : SKShapeNode?
     private var hanzi : SKLabelNode?
     private var clue : SKLabelNode?
-    private var tile : SKSpriteNode?
     private var Tile : SKSpriteNode?
-    private var settings : SKLabelNode?
     
     override func sceneDidLoad() {
 
         self.lastUpdateTime = 0
         
-   //     answerTile = AnswerTile()
-        
         // Add the target
+        
+        print (self.size.width)
         print("before theTarget")
         self.theTarget = SKSpriteNode()
         if let theTarget = self.theTarget {
-            print("theTarget")
             theTarget.texture = SKTexture(imageNamed: "archery_target")
             theTarget.size = theTarget.texture!.size()
-            theTarget.size = CGSize(width: 500.0, height: 500.0)
+            theTarget.size = CGSize(width: self.size.width, height: self.size.width)
             print (theTarget.size.width)
-            theTarget.anchorPoint = CGPoint(x: 0, y: 1)
-            theTarget.position = CGPoint(x: -theTarget.size.width/2, y: 500)
+            theTarget.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            theTarget.position = CGPoint(x: 0.0, y: 0.0)
             theTarget.zPosition = 5.0
             self.addChild(theTarget)
         }
-        
-        // Create shape node to use during mouse interaction
-     /*   let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        } */
-        
         
         // Sample a random key:value pair from the dictionary
         print(Dictionary.count)

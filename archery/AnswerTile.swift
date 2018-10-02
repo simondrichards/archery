@@ -14,6 +14,7 @@ class AnswerTile: SKSpriteNode {
     
     var hanzi : SKLabelNode?
     var word: String
+    
     // MARK: - Init
     
     init(x: CGFloat, y: CGFloat, word: String) {
@@ -41,13 +42,12 @@ class AnswerTile: SKSpriteNode {
         self.hanzi = SKLabelNode.init()
         if let hanzi = self.hanzi {
             hanzi.fontSize = 50
-            hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
+            hanzi.fontName = "STHeitiSC-Medium"
             hanzi.verticalAlignmentMode = .center
             hanzi.text = self.word
         }
         addChild(self.hanzi!)
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
