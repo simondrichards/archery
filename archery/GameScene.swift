@@ -9,10 +9,59 @@
 import SpriteKit
 import GameplayKit
 
+/*
+class answerTile: SKSpriteNode {
+    
+    private var tile : SKSpriteNode?
+    private var hanzi : SKLabelNode?
+    private var key: String
+    private var value: String
+    
+    var wordKey: String
+    var wordValue: String
+    
+    init(key: String, value: String) {
+        self.wordKey = key
+        self.wordValue = value
+        super.init(texture: nil, color: .white, size: CGSize(width: 50, height: 50))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func create(dictionaryKey: String, dictionaryValue: String) {
+        
+        // Create a tile for the candidate answers
+        
+        let textsize: Int = 50
+        var tilesize: Int
+        
+        // Make tile big enough for two characters
+        tilesize = 3*textsize + 8
+        
+        self.tile = SKSpriteNode.init(color: .red, size: CGSize(width: tilesize, height: textsize+8))
+        self.hanzi = SKLabelNode.init()
+        if let hanzi = self.hanzi {
+            hanzi.fontSize = 50
+            hanzi.fontName = "STHeitiSC-Medium"  //"PingFangSC-SemiBold"
+            hanzi.verticalAlignmentMode = .center
+            hanzi.text = wordValue
+        }
+        if let tile = self.tile {
+            tile.color = .blue
+            tile.position = CGPoint(x: 200.0, y: 250.0)
+            tile.zPosition = 10.0
+            tile.addChild(self.hanzi!)
+        }
+    }
+} */
+
 class GameScene: SKScene {
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
+  //  let answerTile: AnswerTile
     
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
@@ -26,6 +75,8 @@ class GameScene: SKScene {
     override func sceneDidLoad() {
 
         self.lastUpdateTime = 0
+        
+   //     answerTile = AnswerTile()
         
         // Add the target
         print("before theTarget")
@@ -58,7 +109,7 @@ class GameScene: SKScene {
         
         // Sample a random key:value pair from the dictionary
         print(Dictionary.count)
-        let randomWord = Dictionary.randomElement()!
+        var randomWord = Dictionary.randomElement()!
         print (randomWord)
         
         // Create a LabelNode to display the word below the target
@@ -96,6 +147,15 @@ class GameScene: SKScene {
             self.addChild(tile)
             print("addChild(tile)")
         }
+        
+        randomWord = Dictionary.randomElement()!
+        let newTile1 = AnswerTile(x: 100.0, y: -200.0, word: randomWord.value)
+        self.addChild(newTile1)
+        
+        randomWord = Dictionary.randomElement()!
+        let newTile2 = AnswerTile(x:-100.0, y: -200.0, word: randomWord.value)
+        self.addChild(newTile2)
+        
     }
     
     

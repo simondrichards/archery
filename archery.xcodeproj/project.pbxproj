@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F445FEDA2160B187007D0C90 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445FED92160B187007D0C90 /* SettingsViewController.swift */; };
 		F445FEE621624FD7007D0C90 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445FEE521624FD6007D0C90 /* Dictionary.swift */; };
+		F445FEEA2162D32D007D0C90 /* AnswerTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F445FEE92162D32D007D0C90 /* AnswerTile.swift */; };
 		F4903F16212C9B8D000142D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4903F15212C9B8D000142D0 /* AppDelegate.swift */; };
 		F4903F18212C9B8D000142D0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4903F17212C9B8D000142D0 /* GameScene.sks */; };
 		F4903F1A212C9B8D000142D0 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4903F19212C9B8D000142D0 /* Actions.sks */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		F445FED92160B187007D0C90 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F445FEE521624FD6007D0C90 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		F445FEE92162D32D007D0C90 /* AnswerTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTile.swift; sourceTree = "<group>"; };
 		F4903F12212C9B8D000142D0 /* archery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = archery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4903F15212C9B8D000142D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4903F17212C9B8D000142D0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		F4903F14212C9B8D000142D0 /* archery */ = {
 			isa = PBXGroup;
 			children = (
+				F445FEE92162D32D007D0C90 /* AnswerTile.swift */,
 				F4903F15212C9B8D000142D0 /* AppDelegate.swift */,
 				F4903F17212C9B8D000142D0 /* GameScene.sks */,
 				F4903F19212C9B8D000142D0 /* Actions.sks */,
@@ -279,6 +282,7 @@
 				F4903F1C212C9B8D000142D0 /* GameScene.swift in Sources */,
 				F445FEE621624FD7007D0C90 /* Dictionary.swift in Sources */,
 				F4903F1E212C9B8D000142D0 /* GameViewController.swift in Sources */,
+				F445FEEA2162D32D007D0C90 /* AnswerTile.swift in Sources */,
 				F4903F16212C9B8D000142D0 /* AppDelegate.swift in Sources */,
 				F445FEDA2160B187007D0C90 /* SettingsViewController.swift in Sources */,
 			);
