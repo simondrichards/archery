@@ -28,6 +28,18 @@ class GameScene: SKScene {
     var initialPosition = [CGPoint]()
     var finalPosition   = [CGPoint]()
     var correct = 0
+    
+    var scoreLabel: SKLabelNode!
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    
+    
+    var lives = 3
+    
+    
 
     func initial(){
         // Set up initial positions
@@ -66,6 +78,13 @@ class GameScene: SKScene {
             theTarget.zPosition = 5.0
             self.addChild(theTarget)
         }
+        
+        // Display the score
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.fontSize = 50
+        scoreLabel.text = "Score: 0"
+        scoreLabel.position = CGPoint(x:0.0, y: 600.0)
+        addChild(scoreLabel)
         
        // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
@@ -122,6 +141,13 @@ class GameScene: SKScene {
             clue.zPosition = 80
             self.addChild(clue)
         }
+        
+        for i in 0..<numberOfOptions {
+            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+            let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
+            let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
+            theTiles[i].run(seq)
+        }
     }
     
     func calculateSector(position: CGPoint) -> Int {
@@ -171,6 +197,11 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
  
         if let touch = touches.first {
+            
+            for i in (0..<numberOfOptions){
+                theTiles[i].removeAllActions()
+            }
+            
             let location = touch.location(in: self)
             print("Touch location = \(location)")
             let sector = calculateSector(position: location)
@@ -178,18 +209,15 @@ class GameScene: SKScene {
             
             if (sector-1 == correct) {
                 print ("Correct")
+                score += 1
             }
             else{
                 print ("Incorrect")
+                lives -= 1
             }
         }
         
-        for i in 0..<numberOfOptions {
-            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
-            let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
-            let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
-            theTiles[i].run(seq)
-        }
+ 
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
