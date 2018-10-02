@@ -14,12 +14,14 @@ class AnswerTile: SKSpriteNode {
     
     var hanzi : SKLabelNode?
     var word: String
+    var key: String
     
     // MARK: - Init
     
-    init(x: CGFloat, y: CGFloat, word: String) {
+    init(x: CGFloat, y: CGFloat, key: String, word: String) {
         let tileSize = CGSize(width: 30, height: 30)
         self.word = word
+        self.key = key
 
         super.init(texture: nil, color: .blue, size: tileSize)
         self.position.x = x

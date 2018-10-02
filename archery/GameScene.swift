@@ -27,6 +27,7 @@ class GameScene: SKScene {
     let numberOfOptions = 4
     var initialPosition = [CGPoint]()
     var finalPosition   = [CGPoint]()
+    var correct = 0
 
     func initial(){
         // Set up initial positions
@@ -66,20 +67,11 @@ class GameScene: SKScene {
             self.addChild(theTarget)
         }
         
-        // Sample a random key:value pair from the dictionary
+       // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
         print (randomWord)
-        
-        // Create a LabelNode to display the word below the target
-        self.clue = SKLabelNode.init()
-        if let clue = self.clue {
-            clue.position = CGPoint(x: 0.0, y: -600.0)
-            clue.fontSize = 50
-            clue.fontName = "STHeitiSC-Medium"
-            clue.text = randomWord.key
-            clue.zPosition = 80
-            self.addChild(clue)
-        }
+
+   
         
         // Create a tile for the candidate answers
  /*       self.Tile = AnswerTile(x: 0.0, y: 250.0, word: randomWord.value)
@@ -112,10 +104,23 @@ class GameScene: SKScene {
             
             print(initialPosition.count)
             print(initialPosition[i])
-            theTiles.append(AnswerTile(x: initialPosition[i].x, y: initialPosition[i].y, word: randomWord.value))
+            theTiles.append(AnswerTile(x: initialPosition[i].x, y: initialPosition[i].y, key: randomWord.key, word: randomWord.value))
             self.addChild(theTiles[i])
             wordSet[randomWord.key] = randomWord.value
-            
+        }
+        // Pick the correct answer randomly from the set of sampled words
+        correct = Int.random(in: 0..<numberOfOptions)
+        print ("Correct answer = \(theTiles[correct].word) , \(theTiles[correct].key)")
+        
+        // Create a LabelNode to display the word below the target
+        self.clue = SKLabelNode.init()
+        if let clue = self.clue {
+            clue.position = CGPoint(x: 0.0, y: -600.0)
+            clue.fontSize = 50
+            clue.fontName = "STHeitiSC-Medium"
+            clue.text = theTiles[correct].key
+            clue.zPosition = 80
+            self.addChild(clue)
         }
     }
     
@@ -170,6 +175,13 @@ class GameScene: SKScene {
             print("Touch location = \(location)")
             let sector = calculateSector(position: location)
             print ("Selected sector = \(sector)")
+            
+            if (sector-1 == correct) {
+                print ("Correct")
+            }
+            else{
+                print ("Incorrect")
+            }
         }
         
         for i in 0..<numberOfOptions {
