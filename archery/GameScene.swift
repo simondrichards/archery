@@ -21,17 +21,28 @@ class GameScene: SKScene {
     private var clue : SKLabelNode?
     private var Tile : SKSpriteNode?
     
+    // Create an empty array of tiles
+    var theTiles = [AnswerTile]()
+    
     let numberOfOptions = 4
     var initialPosition = [CGPoint]()
-    
+    var finalPosition   = [CGPoint]()
+
     func initial(){
         // Set up initial positions
         switch numberOfOptions {
             case 4:
-                initialPosition.append(CGPoint(x:-100.0, y: 50.0))
-                initialPosition.append(CGPoint(x: 100.0, y: 50.0))
-                initialPosition.append(CGPoint(x:-100.0, y:-50.0))
-                initialPosition.append(CGPoint(x: 100.0, y:-50.0))
+                initialPosition.append(CGPoint(x:-90.0, y: 40.0))
+                initialPosition.append(CGPoint(x: 90.0, y: 40.0))
+                initialPosition.append(CGPoint(x:-90.0, y:-40.0))
+                initialPosition.append(CGPoint(x: 90.0, y:-40.0))
+                
+                finalPosition.append(CGPoint(x: -300.0, y: 300.0))
+                finalPosition.append(CGPoint(x:  300.0, y: 300.0))
+                finalPosition.append(CGPoint(x: -300.0, y:-300.0))
+                finalPosition.append(CGPoint(x:  300.0, y:-300.0))
+
+
             default:
                 break
         }
@@ -62,7 +73,7 @@ class GameScene: SKScene {
         // Create a LabelNode to display the word below the target
         self.clue = SKLabelNode.init()
         if let clue = self.clue {
-            clue.position = CGPoint(x: 0.0, y: -100.0)
+            clue.position = CGPoint(x: 0.0, y: -600.0)
             clue.fontSize = 50
             clue.fontName = "STHeitiSC-Medium"
             clue.text = randomWord.key
@@ -71,7 +82,7 @@ class GameScene: SKScene {
         }
         
         // Create a tile for the candidate answers
-        self.Tile = AnswerTile(x: 0.0, y: 250.0, word: randomWord.value)
+ /*       self.Tile = AnswerTile(x: 0.0, y: 250.0, word: randomWord.value)
         self.addChild(self.Tile!)
         
         randomWord = Dictionary.randomElement()!
@@ -81,9 +92,8 @@ class GameScene: SKScene {
         randomWord = Dictionary.randomElement()!
         let newTile2 = AnswerTile(x:-100.0, y: -200.0, word: randomWord.value)
         self.addChild(newTile2)
-     
-        // Create an empty array of tiles
-        var theTiles = [AnswerTile]()
+     */
+
         
         // Create the required number of tiles
         initial() // Set initial positions
@@ -137,8 +147,11 @@ class GameScene: SKScene {
         if let label = self.label {
             label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         }
-        if let myTile = self.Tile {
-            myTile.run(SKAction.moveBy(x: 0.0, y: 250.0, duration: 3.0))
+        for i in 0..<numberOfOptions {
+            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+            let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
+            let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
+            theTiles[i].run(seq)
         }
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
