@@ -80,30 +80,15 @@ class GameScene: SKScene {
         }
         
         // Display the score
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
         scoreLabel.fontSize = 50
         scoreLabel.text = "Score: 0"
-        scoreLabel.position = CGPoint(x:0.0, y: 600.0)
+        scoreLabel.position = CGPoint(x:0.0, y: 550.0)
         addChild(scoreLabel)
         
        // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
         print (randomWord)
-
-   
-        
-        // Create a tile for the candidate answers
- /*       self.Tile = AnswerTile(x: 0.0, y: 250.0, word: randomWord.value)
-        self.addChild(self.Tile!)
-        
-        randomWord = Dictionary.randomElement()!
-        let newTile1 = AnswerTile(x: 100.0, y: -200.0, word: randomWord.value)
-        self.addChild(newTile1)
-        
-        randomWord = Dictionary.randomElement()!
-        let newTile2 = AnswerTile(x:-100.0, y: -200.0, word: randomWord.value)
-        self.addChild(newTile2)
-     */
 
         
         // Create the required number of tiles
@@ -129,7 +114,7 @@ class GameScene: SKScene {
         }
         // Pick the correct answer randomly from the set of sampled words
         correct = Int.random(in: 0..<numberOfOptions)
-        print ("Correct answer = \(theTiles[correct].word) , \(theTiles[correct].key)")
+        print ("Correct answer = \(theTiles[correct].word) , \(theTiles[correct].key) , sector \(correct+1))")
         
         // Create a LabelNode to display the word below the target
         self.clue = SKLabelNode.init()
@@ -143,7 +128,7 @@ class GameScene: SKScene {
         }
         
         for i in 0..<numberOfOptions {
-            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 10.0)
             let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
             let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
             theTiles[i].run(seq)
@@ -161,13 +146,35 @@ class GameScene: SKScene {
         case 4:
             if (x<0 && y>=0)       {sector=1}
             else if (x>=0 && y>=0) {sector=2}
-            else if (x>=0 && y<0)  {sector=3}
-            else if (x<0 && y<0)   {sector=4}
+            else if (x<0 && y<0)   {sector=3}
+            else if (x>=0 && y<0)  {sector=4}
         default:
             sector = 0
         }
         
         return(sector)
+    }
+    
+    func calculateScore(position: CGPoint) -> Int{
+        // Calculate the score based on distance from the centre of the target
+        var points = 0
+        
+        let x = position.x
+        let y = position.y
+        
+        // Normalised radius (between 0 and 1)
+        let radius = sqrt(x*x + y*y) / (self.size.width/2)
+        
+        if radius<0.2      {points=9}
+        else if radius<0.4 {points=7}
+        else if radius<0.6 {points=5}
+        else if radius<0.8 {points=3}
+        else if radius<1.0 {points=1}
+        else               {points=0}
+        
+        print("radius = \(radius) , points = \(points)")
+        
+        return points
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -209,7 +216,9 @@ class GameScene: SKScene {
             
             if (sector-1 == correct) {
                 print ("Correct")
-                score += 1
+                print ("Position is \(theTiles[correct].position)")
+                let points = calculateScore(position: theTiles[correct].position)
+                score += points
             }
             else{
                 print ("Incorrect")
