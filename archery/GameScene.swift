@@ -36,8 +36,12 @@ class GameScene: SKScene {
         }
     }
     
-    
-    var lives = 3
+    var livesLabel: SKLabelNode!
+    var lives = 3 {
+        didSet {
+            livesLabel.text = "Lives: \(lives)"
+        }
+    }
     
     
 
@@ -82,9 +86,16 @@ class GameScene: SKScene {
         // Display the score
         scoreLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
         scoreLabel.fontSize = 50
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Score: \(score)"
         scoreLabel.position = CGPoint(x:0.0, y: 550.0)
         addChild(scoreLabel)
+        
+        // Display lives
+        livesLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
+        livesLabel.fontSize = 50
+        livesLabel.text = "Lives: \(lives)"
+        livesLabel.position = CGPoint(x:0.0, y: 500.0)
+        addChild(livesLabel)
         
        // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
@@ -131,7 +142,12 @@ class GameScene: SKScene {
             let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 10.0)
             let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
             let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
-            theTiles[i].run(seq)
+            theTiles[i].run(seq, completion: {() -> Void in
+                if i==0 {
+                    print("Completion")
+                    self.lives -= 1
+                }
+            })
         }
     }
     
