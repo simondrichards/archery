@@ -17,12 +17,17 @@ class GameScene: SKScene {
     private var lastUpdateTime : TimeInterval = 0
     private var label : SKLabelNode?
     private var theTarget : SKSpriteNode?
+    private var arrow : SKSpriteNode?
+    private var arrow1 : Arrow?
     private var hanzi : SKLabelNode?
     private var clue : SKLabelNode?
     private var Tile : SKSpriteNode?
     
     // Create an empty array of tiles
     var theTiles = [AnswerTile]()
+    
+    // Create an empty array of arrows (lives)
+    var theArrows = [Arrow]()
     
     let numberOfOptions = 4
     var initialPosition = [CGPoint]()
@@ -96,6 +101,12 @@ class GameScene: SKScene {
         livesLabel.text = "Lives: \(lives)"
         livesLabel.position = CGPoint(x:0.0, y: 500.0)
         addChild(livesLabel)
+        
+        for i in 0..<lives {
+            theArrows.append(Arrow(x: CGFloat(-200.0), y: CGFloat(-450.0-30.0*Double(i))))
+            self.addChild(theArrows[i])
+        }
+        
         
        // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
