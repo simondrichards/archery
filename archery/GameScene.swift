@@ -23,6 +23,8 @@ class GameScene: SKScene {
     private var clue : SKLabelNode?
     private var Tile : SKSpriteNode?
     
+    var newWord: Bool = false
+    
     // Create an empty array of tiles
     var theTiles = [AnswerTile]()
     
@@ -47,6 +49,11 @@ class GameScene: SKScene {
             livesLabel.text = "Lives: \(lives)"
         }
     }
+
+    // MARK- Actions
+    let fadeIn:SKAction = SKAction.fadeIn(withDuration: 0.0)
+    let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
+
     
     
 
@@ -149,7 +156,6 @@ class GameScene: SKScene {
             self.addChild(clue)
         }
         
-        let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
         
         for i in 0..<numberOfOptions {
             let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 10.0)
@@ -158,7 +164,8 @@ class GameScene: SKScene {
                 if i==0 {
                     print("Completion")
                     self.lives -= 1
-                    self.theArrows[self.lives].run(fadeAway)
+                    self.theArrows[self.lives].run(self.fadeAway)
+                    self.newWord = true
                 }
             })
         }
@@ -259,6 +266,7 @@ class GameScene: SKScene {
                 theArrows[lives-1].run(fadeAway)
                 lives -= 1
             }
+            if (self.lives>0) {newWord=true}
         }
         
  
@@ -293,6 +301,30 @@ class GameScene: SKScene {
         // Update entities
         for entity in self.entities {
             entity.update(deltaTime: dt)
+        }
+        
+        if (self.newWord) {
+            print ("Another go")
+            self.newWord = false
+            
+            for i in 0..<numberOfOptions {
+                let moveToInitial:SKAction = SKAction.move(to: initialPosition[i], duration: 0.0)
+                theTiles[i].run(moveToInitial)
+                theTiles[i].run(fadeIn)
+            }
+            
+            for i in 0..<numberOfOptions {
+                let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+                let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
+                theTiles[i].run(seq, completion: {() -> Void in
+                    if i==0 {
+                        print("Completion")
+                        self.lives -= 1
+                        self.theArrows[self.lives].run(self.fadeAway)
+                        if (self.lives>0) {self.newWord = true}
+                    }
+                })
+            }
         }
         
         self.lastUpdateTime = currentTime
