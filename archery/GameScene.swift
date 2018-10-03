@@ -149,17 +149,20 @@ class GameScene: SKScene {
             self.addChild(clue)
         }
         
+        let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
+        
         for i in 0..<numberOfOptions {
             let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 10.0)
-            let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
             let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
             theTiles[i].run(seq, completion: {() -> Void in
                 if i==0 {
                     print("Completion")
                     self.lives -= 1
+                    self.theArrows[self.lives].run(fadeAway)
                 }
             })
         }
+
     }
     
     func calculateSector(position: CGPoint) -> Int {
@@ -229,7 +232,8 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
- 
+        let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
+
         if let touch = touches.first {
             
             for i in (0..<numberOfOptions){
@@ -249,6 +253,7 @@ class GameScene: SKScene {
             }
             else{
                 print ("Incorrect")
+                theArrows[lives-1].run(fadeAway)
                 lives -= 1
             }
         }
