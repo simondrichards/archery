@@ -103,7 +103,7 @@ class GameScene: SKScene {
         addChild(livesLabel)
         
         for i in 0..<lives {
-            theArrows.append(Arrow(x: CGFloat(-200.0), y: CGFloat(-450.0-30.0*Double(i))))
+            theArrows.append(Arrow(x: CGFloat(-200.0), y: CGFloat(-550.0-30.0*Double(i))))
             self.addChild(theArrows[i])
         }
         
@@ -141,7 +141,7 @@ class GameScene: SKScene {
         // Create a LabelNode to display the word below the target
         self.clue = SKLabelNode.init()
         if let clue = self.clue {
-            clue.position = CGPoint(x: 0.0, y: -600.0)
+            clue.position = CGPoint(x: 0.0, y: -500.0)
             clue.fontSize = 50
             clue.fontName = "STHeitiSC-Medium"
             clue.text = theTiles[correct].key
@@ -248,11 +248,14 @@ class GameScene: SKScene {
             if (sector-1 == correct) {
                 print ("Correct")
                 print ("Position is \(theTiles[correct].position)")
+                theTiles[sector-1].color = .green
                 let points = calculateScore(position: theTiles[correct].position)
                 score += points
             }
             else{
                 print ("Incorrect")
+                theTiles[sector-1].color = .red
+                theTiles[correct].color = .green
                 theArrows[lives-1].run(fadeAway)
                 lives -= 1
             }
