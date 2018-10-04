@@ -24,6 +24,7 @@ class GameScene: SKScene {
     private var Tile : SKSpriteNode?
     
     var newWord: Bool = false
+    var attemptMade: Bool = false
     
     // Create an empty array of tiles
     var theTiles = [AnswerTile]()
@@ -53,9 +54,7 @@ class GameScene: SKScene {
     // MARK- Actions
     let fadeIn:SKAction = SKAction.fadeIn(withDuration: 0.0)
     let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
-
-    
-    
+    let waitFor2:SKAction = SKAction.wait(forDuration: 2.0)
 
     func initial(){
         // Set up initial positions
@@ -158,8 +157,8 @@ class GameScene: SKScene {
         
         
         for i in 0..<numberOfOptions {
-            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 10.0)
-            let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
+            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+            let seq:SKAction = SKAction.sequence([moveToEdge, waitFor2, fadeAway])
             theTiles[i].run(seq, completion: {() -> Void in
                 if i==0 {
                     print("Completion")
@@ -190,6 +189,71 @@ class GameScene: SKScene {
         }
         
         return(sector)
+    }
+    
+    func resetTiles() {
+        // Reset the tiles to their starting positions and sample new words.
+        
+        if !self.newWord {
+            return
+        }
+        
+        // Create the required number of tiles
+        var wordSet = [String: String]()
+        for i in 0..<numberOfOptions{
+            
+            // Get a random word from the dictionary
+            var randomWord = Dictionary.randomElement()!
+            
+            // Discard and resample if we've already created a tile for this word
+            if (i>0) {
+                while (wordSet[randomWord.key] != nil){
+                    randomWord = Dictionary.randomElement()!
+                }
+            }
+            
+            theTiles[i].position.x = initialPosition[i].x
+            theTiles[i].position.y = initialPosition[i].y
+            theTiles[i].color = .blue
+            theTiles[i].hanzi!.text = randomWord.value
+            theTiles[i].key = randomWord.key
+            theTiles[i].word = randomWord.value
+            
+            theTiles[i].run(fadeIn)
+
+            wordSet[randomWord.key] = randomWord.value
+        }
+        
+        // Pick the correct answer randomly from the set of sampled words
+        correct = Int.random(in: 0..<numberOfOptions)
+        self.clue!.text = theTiles[correct].key
+        
+        for i in 0..<numberOfOptions {
+            let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
+            let seq:SKAction = SKAction.sequence([moveToEdge, waitFor2, fadeAway])
+            theTiles[i].run(seq, completion: {() -> Void in
+                if i==0 {
+                    self.lives -= 1
+                    self.theArrows[self.lives].run(self.fadeAway)
+                    self.newWord = true
+                }
+            })
+        }
+        
+        // Set the newWord flag false until another word is needed.
+        self.newWord = false
+    }
+    
+    func displayOutcome() {
+        if !attemptMade {
+            return
+        }
+        for i in 0..<numberOfOptions {
+            theTiles[i].run(waitFor2, completion: {() -> Void in
+                self.newWord = true
+            })
+        }
+        attemptMade = false
     }
     
     func calculateScore(position: CGPoint) -> Int{
@@ -263,13 +327,17 @@ class GameScene: SKScene {
                 print ("Incorrect")
                 theTiles[sector-1].color = .red
                 theTiles[correct].color = .green
-                theArrows[lives-1].run(fadeAway)
+                let seq:SKAction = SKAction.sequence([waitFor2, fadeAway])
+                theArrows[lives-1].run(seq)
                 lives -= 1
             }
-            if (self.lives>0) {newWord=true}
+            attemptMade = true
+      //      if (self.lives>0) {newWord=true}
+            
+            for i in 0..<numberOfOptions {
+                theTiles[i].run(waitFor2)
+            }
         }
-        
- 
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
@@ -303,30 +371,49 @@ class GameScene: SKScene {
             entity.update(deltaTime: dt)
         }
         
+        displayOutcome()
+        resetTiles()
+        
+        let doStuff = false
+        
+        if doStuff {
+        print ("self.newWord = \(self.newWord)")
         if (self.newWord) {
             print ("Another go")
             self.newWord = false
             
             for i in 0..<numberOfOptions {
+                
+                let randomWord = Dictionary.randomElement()!
+                theTiles[i].word = randomWord.value
+                theTiles[i].color = .blue
                 let moveToInitial:SKAction = SKAction.move(to: initialPosition[i], duration: 0.0)
                 theTiles[i].run(moveToInitial)
                 theTiles[i].run(fadeIn)
             }
-            
+        }
+   //     print ("before, newWord = \(self.newWord), NOT newWord = \(!self.newWord)")
+        if self.newWord {
+      //     print ("Should not be here if newWord is false: newWord = \(newWord)")
             for i in 0..<numberOfOptions {
                 let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
-                let seq:SKAction = SKAction.sequence([moveToEdge, fadeAway])
+                let seq:SKAction = SKAction.sequence([moveToEdge, waitFor2, fadeAway])
                 theTiles[i].run(seq, completion: {() -> Void in
                     if i==0 {
                         print("Completion")
                         self.lives -= 1
+                        print ("self.lives = \(self.lives)")
                         self.theArrows[self.lives].run(self.fadeAway)
                         if (self.lives>0) {self.newWord = true}
                     }
                 })
             }
         }
-        
+        }
+        print ("currentTime = \(currentTime)   self.newWord = \(self.newWord)")
         self.lastUpdateTime = currentTime
+    }
+    override func didEvaluateActions() {
+        print ("didEvaluateActions")
     }
 }

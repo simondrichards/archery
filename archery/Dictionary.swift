@@ -17,5 +17,8 @@ var Dictionary = ["love": "爱",
                   "cup": "杯子",
                   "Beijing": "北京",
                   "You're welcome": "不客气",
+                  "dish":  "菜",
+                  "tea": "茶",
+                  "sorry": "对不起",
                   "to be": "是"
 ]
