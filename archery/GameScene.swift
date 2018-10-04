@@ -25,6 +25,7 @@ class GameScene: SKScene {
     
     var newWord: Bool = false
     var attemptMade: Bool = false
+    var gameOver: Bool = false
     
     // Create an empty array of tiles
     var theTiles = [AnswerTile]()
@@ -256,6 +257,15 @@ class GameScene: SKScene {
         attemptMade = false
     }
     
+    func endGame() {
+        if !gameOver {
+            return
+        }
+        print("Game Over")
+        
+        newWord = false
+    }
+    
     func calculateScore(position: CGPoint) -> Int{
         // Calculate the score based on distance from the centre of the target
         var points = 0
@@ -305,6 +315,10 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
 
+        if gameOver {
+            return
+        }
+        
         if let touch = touches.first {
             
             for i in (0..<numberOfOptions){
@@ -330,6 +344,8 @@ class GameScene: SKScene {
                 let seq:SKAction = SKAction.sequence([waitFor2, fadeAway])
                 theArrows[lives-1].run(seq)
                 lives -= 1
+                gameOver = lives<1
+                print ("gameOver = \(gameOver)")
             }
             attemptMade = true
       //      if (self.lives>0) {newWord=true}
@@ -371,6 +387,7 @@ class GameScene: SKScene {
             entity.update(deltaTime: dt)
         }
         
+        endGame()
         displayOutcome()
         resetTiles()
         
