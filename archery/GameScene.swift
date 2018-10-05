@@ -235,6 +235,7 @@ class GameScene: SKScene {
             theTiles[i].run(seq, completion: {() -> Void in
                 if i==0 {
                     self.lives -= 1
+                    self.gameOver = self.lives < 1
                     self.theArrows[self.lives].run(self.fadeAway)
                     self.newWord = true
                 }
@@ -262,7 +263,6 @@ class GameScene: SKScene {
             return
         }
         print("Game Over")
-        
         newWord = false
     }
     
@@ -345,7 +345,6 @@ class GameScene: SKScene {
                 theArrows[lives-1].run(seq)
                 lives -= 1
                 gameOver = lives<1
-                print ("gameOver = \(gameOver)")
             }
             attemptMade = true
       //      if (self.lives>0) {newWord=true}
@@ -422,6 +421,7 @@ class GameScene: SKScene {
                         print ("self.lives = \(self.lives)")
                         self.theArrows[self.lives].run(self.fadeAway)
                         if (self.lives>0) {self.newWord = true}
+                        self.gameOver = self.lives<1
                     }
                 })
             }
