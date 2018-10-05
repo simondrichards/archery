@@ -143,7 +143,6 @@ class GameScene: SKScene {
         }
         // Pick the correct answer randomly from the set of sampled words
         correct = Int.random(in: 0..<numberOfOptions)
-        print ("Correct answer = \(theTiles[correct].word) , \(theTiles[correct].key) , sector \(correct+1))")
         
         // Create a LabelNode to display the word below the target
         self.clue = SKLabelNode.init()
@@ -162,7 +161,6 @@ class GameScene: SKScene {
             let seq:SKAction = SKAction.sequence([moveToEdge, waitFor2, fadeAway])
             theTiles[i].run(seq, completion: {() -> Void in
                 if i==0 {
-                    print("Completion")
                     self.lives -= 1
                     self.theArrows[self.lives].run(self.fadeAway)
                     self.newWord = true
@@ -283,8 +281,6 @@ class GameScene: SKScene {
         else if radius<1.0 {points=1}
         else               {points=0}
         
-        print("radius = \(radius) , points = \(points)")
-        
         return points
     }
     
@@ -326,19 +322,14 @@ class GameScene: SKScene {
             }
             
             let location = touch.location(in: self)
-            print("Touch location = \(location)")
             let sector = calculateSector(position: location)
-            print ("Selected sector = \(sector)")
             
             if (sector-1 == correct) {
-                print ("Correct")
-                print ("Position is \(theTiles[correct].position)")
                 theTiles[sector-1].color = .green
                 let points = calculateScore(position: theTiles[correct].position)
                 score += points
             }
             else{
-                print ("Incorrect")
                 theTiles[sector-1].color = .red
                 theTiles[correct].color = .green
                 let seq:SKAction = SKAction.sequence([waitFor2, fadeAway])
@@ -347,7 +338,6 @@ class GameScene: SKScene {
                 gameOver = lives<1
             }
             attemptMade = true
-      //      if (self.lives>0) {newWord=true}
             
             for i in 0..<numberOfOptions {
                 theTiles[i].run(waitFor2)
@@ -390,43 +380,6 @@ class GameScene: SKScene {
         displayOutcome()
         resetTiles()
         
-        let doStuff = false
-        
-        if doStuff {
-        print ("self.newWord = \(self.newWord)")
-        if (self.newWord) {
-            print ("Another go")
-            self.newWord = false
-            
-            for i in 0..<numberOfOptions {
-                
-                let randomWord = Dictionary.randomElement()!
-                theTiles[i].word = randomWord.value
-                theTiles[i].color = .blue
-                let moveToInitial:SKAction = SKAction.move(to: initialPosition[i], duration: 0.0)
-                theTiles[i].run(moveToInitial)
-                theTiles[i].run(fadeIn)
-            }
-        }
-   //     print ("before, newWord = \(self.newWord), NOT newWord = \(!self.newWord)")
-        if self.newWord {
-      //     print ("Should not be here if newWord is false: newWord = \(newWord)")
-            for i in 0..<numberOfOptions {
-                let moveToEdge:SKAction = SKAction.move(to: finalPosition[i], duration: 3.0)
-                let seq:SKAction = SKAction.sequence([moveToEdge, waitFor2, fadeAway])
-                theTiles[i].run(seq, completion: {() -> Void in
-                    if i==0 {
-                        print("Completion")
-                        self.lives -= 1
-                        print ("self.lives = \(self.lives)")
-                        self.theArrows[self.lives].run(self.fadeAway)
-                        if (self.lives>0) {self.newWord = true}
-                        self.gameOver = self.lives<1
-                    }
-                })
-            }
-        }
-        }
         print ("currentTime = \(currentTime)   self.newWord = \(self.newWord)")
         self.lastUpdateTime = currentTime
     }
