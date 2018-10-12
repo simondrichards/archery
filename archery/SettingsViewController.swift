@@ -10,11 +10,14 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var selectHSKLevels: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("SettingsViewController")
+        
+   //     @IBOutlet weak var selectHSKLevels: UISegmentedControl!
     }
     
 

@@ -26,6 +26,7 @@ class GameScene: SKScene {
     var newWord: Bool = false
     var attemptMade: Bool = false
     var gameOver: Bool = false
+    var playAgain: Bool = false
     
     // Create an empty array of tiles
     var theTiles = [AnswerTile]()
@@ -45,12 +46,7 @@ class GameScene: SKScene {
         }
     }
     
-    var livesLabel: SKLabelNode!
-    var lives = 3 {
-        didSet {
-            livesLabel.text = "Lives: \(lives)"
-        }
-    }
+    var lives = 3
 
     // MARK- Actions
     let fadeIn:SKAction = SKAction.fadeIn(withDuration: 0.0)
@@ -99,16 +95,10 @@ class GameScene: SKScene {
         scoreLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
         scoreLabel.fontSize = 50
         scoreLabel.text = "Score: \(score)"
-        scoreLabel.position = CGPoint(x:0.0, y: 550.0)
+        scoreLabel.position = CGPoint(x:0.0, y: 500.0)
         addChild(scoreLabel)
         
         // Display lives
-        livesLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
-        livesLabel.fontSize = 50
-        livesLabel.text = "Lives: \(lives)"
-        livesLabel.position = CGPoint(x:0.0, y: 500.0)
-        addChild(livesLabel)
-        
         for i in 0..<lives {
             theArrows.append(Arrow(x: CGFloat(-200.0), y: CGFloat(-550.0-30.0*Double(i))))
             self.addChild(theArrows[i])
@@ -261,7 +251,36 @@ class GameScene: SKScene {
             return
         }
         print("Game Over")
+        
+        // Fade the target out
+        self.theTarget!.alpha=0.2
+        
+        // Display Game Over
+        var gameOverLabel = SKLabelNode.init()
+        gameOverLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
+        gameOverLabel.fontSize = 100
+        gameOverLabel.fontColor = .yellow
+        gameOverLabel.text = "Game Over"
+        gameOverLabel.position = CGPoint(x:0.0, y: 0.0)
+        gameOverLabel.zPosition = 500.0
+        addChild(gameOverLabel)
+        let spin:SKAction = SKAction.rotate(byAngle: -2.0*CGFloat.pi, duration: 1.0)
+        gameOverLabel.run(spin)
+        
+        // Display play again button
+        var playAgainLabel = SKLabelNode.init()
+        playAgainLabel.name = "playAgain"
+        playAgainLabel = SKLabelNode(fontNamed: "STHeitiSC-Medium")
+        playAgainLabel.fontSize = 50
+        playAgainLabel.fontColor = .yellow
+        playAgainLabel.text = "Play Again"
+        playAgainLabel.position = CGPoint(x:0.0, y: -300.0)
+        playAgainLabel.zPosition = 500.0
+        addChild(playAgainLabel)
+        
         newWord = false
+        gameOver = false
+        playAgain=true
     }
     
     func calculateScore(position: CGPoint) -> Int{
@@ -312,6 +331,20 @@ class GameScene: SKScene {
         let fadeAway:SKAction = SKAction.fadeOut(withDuration: 1.0)
 
         if gameOver {
+            return
+        }
+        
+        if playAgain {
+            // Check for requests to play again
+            for touch: AnyObject in touches {
+                let location = touch.location(in: self)
+                let touchedNode = self.atPoint(location)
+                if let name=touchedNode.name {
+                    if name=="playAgain" {
+                        print ("Play again")
+                    }
+                }
+            }
             return
         }
         
@@ -382,8 +415,5 @@ class GameScene: SKScene {
         
         print ("currentTime = \(currentTime)   self.newWord = \(self.newWord)")
         self.lastUpdateTime = currentTime
-    }
-    override func didEvaluateActions() {
-        print ("didEvaluateActions")
     }
 }
