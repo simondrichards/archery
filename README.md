@@ -52,3 +52,7 @@ are in the app's dictionary for testing purposes.
 
 5) The settings view is currently basic and the controls aren't connected to the code.
 
+6) Further options could be implemented for the player to select the correct English words on the
+target matching the Chinese character(s) displayed below the target, or to select the correct tone
+on the target to match an audio sound of the Chinese word.
+
