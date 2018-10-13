@@ -6,6 +6,7 @@ This is a partially-developed prototype of an app for ChinesePod.
 Development environment:
 macOS High Sierra 10.13.6;
 Xcode 10.0;
+swift 4.2;
 Simulator iPhone XR - 12.0 (Portrait).
 
 Important: because of the limited time I have had to work on these apps, there has not been
