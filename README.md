@@ -38,6 +38,7 @@ can choose only to include words from the lessons they have marked as studied.
 Archery - Further Developments
 
 1) The prototype only implements basic graphics, so there is work to be done on the graphic design. 
+This might optionally include some animation of an arrow hitting the tapped character(s).
 
 2) There is currently no sound in the game, so sound effects, music, and optional pronounciation of the 
 Chinese words could all be added.
@@ -55,4 +56,8 @@ are in the app's dictionary for testing purposes.
 6) Further options could be implemented for the player to select the correct English words on the
 target matching the Chinese character(s) displayed below the target, or to select the correct tone
 on the target to match an audio sound of the Chinese word.
+
+7) A High Score view could be implemented, comparing scores to other players, linked through their
+ChinesePod accounts
+
 
