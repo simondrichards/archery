@@ -2,6 +2,8 @@
 //  GameScene.swift
 //  archery
 //
+//  The main gameplay scene
+//
 //  Created by Simon Richards on 21/08/2018.
 //  Copyright © 2018 Simon Richards. All rights reserved.
 //
@@ -84,7 +86,6 @@ class GameScene: SKScene {
             theTarget.texture = SKTexture(imageNamed: "archery_target")
             theTarget.size = theTarget.texture!.size()
             theTarget.size = CGSize(width: self.size.width, height: self.size.width)
-            print (theTarget.size.width)
             theTarget.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             theTarget.position = CGPoint(x: 0.0, y: 0.0)
             theTarget.zPosition = 5.0
@@ -107,8 +108,6 @@ class GameScene: SKScene {
         
        // Sample a random key:value pair from the dictionary
         var randomWord = Dictionary.randomElement()!
-        print (randomWord)
-
         
         // Create the required number of tiles
         initial() // Set initial positions
@@ -125,8 +124,6 @@ class GameScene: SKScene {
                 }
             }
             
-            print(initialPosition.count)
-            print(initialPosition[i])
             theTiles.append(AnswerTile(x: initialPosition[i].x, y: initialPosition[i].y, key: randomWord.key, word: randomWord.value))
             self.addChild(theTiles[i])
             wordSet[randomWord.key] = randomWord.value
@@ -250,7 +247,6 @@ class GameScene: SKScene {
         if !gameOver {
             return
         }
-        print("Game Over")
         
         // Fade the target out
         self.theTarget!.alpha=0.2
@@ -281,6 +277,7 @@ class GameScene: SKScene {
         newWord = false
         gameOver = false
         playAgain=true
+        self.lives = 3
     }
     
     func calculateScore(position: CGPoint) -> Int{
@@ -341,7 +338,7 @@ class GameScene: SKScene {
                 let touchedNode = self.atPoint(location)
                 if let name=touchedNode.name {
                     if name=="playAgain" {
-                        print ("Play again")
+                        self.lives = 3
                     }
                 }
             }
@@ -413,7 +410,6 @@ class GameScene: SKScene {
         displayOutcome()
         resetTiles()
         
-        print ("currentTime = \(currentTime)   self.newWord = \(self.newWord)")
         self.lastUpdateTime = currentTime
     }
 }

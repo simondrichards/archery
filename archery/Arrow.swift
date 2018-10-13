@@ -2,6 +2,8 @@
 //  Arrow.swift
 //  archery
 //
+//  Class for arrows representing number of lives remaining
+//
 //  Created by Simon Richards on 03/10/2018.
 //  Copyright © 2018 Simon Richards. All rights reserved.
 //

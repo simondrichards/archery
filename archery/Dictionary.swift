@@ -2,6 +2,8 @@
 //  Dictionary.swift
 //  archery
 //
+//  A dictionary of Chinese and English word.
+//
 //  Created by Simon Richards on 01/10/2018.
 //  Copyright © 2018 Simon Richards. All rights reserved.
 //
