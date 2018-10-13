@@ -61,4 +61,4 @@ on the target to match an audio sound of the Chinese word.
 7) A High Score view could be implemented, comparing scores to other players, linked through their
 ChinesePod accounts
 
-
+© Simon Richards, 2018. All rights reserved.
