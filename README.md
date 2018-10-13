@@ -37,18 +37,18 @@ can choose only to include words from the lessons they have marked as studied.
 
 Archery - Further Developments
 
-The prototype only implements basic graphics, so there is work to be done on the graphic design. 
+1) The prototype only implements basic graphics, so there is work to be done on the graphic design. 
 
-There is currently no sound in the game, so sound effects, music, and optional pronounciation of the 
+2) There is currently no sound in the game, so sound effects, music, and optional pronounciation of the 
 Chinese words could all be added.
 
-It is intended that the user should be able to choose how many words to be displayed on the target. 
+3) It is intended that the user should be able to choose how many words to be displayed on the target. 
 For example the choice of 2, 4, or 6 options would lead to increasing difficulty, with the words shown
 in different segments of the target. This has not yet been fully implemented, so only 4 segments are currently
 available.
 
-The vocabularly lists need to be added along with the link to ChinesePod vocabularly. Currently only a few words
+4) The vocabularly lists need to be added along with the link to ChinesePod vocabularly. Currently only a few words
 are in the app's dictionary for testing purposes.
 
-The settings view is currently basic and the controls aren't connected to the code.
+5) The settings view is currently basic and the controls aren't connected to the code.
 
